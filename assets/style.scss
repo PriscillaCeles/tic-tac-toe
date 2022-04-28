@@ -2,6 +2,7 @@
 @import "_variables.scss";
 @import "./functions";
 
+
 * {
     font-family: $font;
 }
@@ -80,6 +81,7 @@ body {
             transform: translate(-100%, -50%);
 
             display: block;
+            transition: 300ms;
         }
     }
 
@@ -232,8 +234,7 @@ body {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    min-width: calculator-rem(600);
-
+    min-width: calculator-rem(530);
     background-color: $ligth-blue;
     box-sizing: border-box;
     padding: 50px 45px;
@@ -361,3 +362,4 @@ body {
         }
     }
 }
+
