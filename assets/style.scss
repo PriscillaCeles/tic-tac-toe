@@ -1,0 +1,332 @@
+@import "./_reset.scss";
+@import "_variables.scss";
+@import "./functions";
+
+body {
+    font-family: $font;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.start-box {
+    width: calculator-rem(387);
+    max-width: 387px;
+    background-color: $dark-blue;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 50px 35px;
+
+    &__player {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 48px;
+        border: none;
+        border-radius: 10px;
+        background-color: $white;
+        box-sizing: border-box;
+        padding: 0 9px 0 15px ;
+
+        &:last-child {
+            margin-top: calculator-rem(20);
+        }
+
+        &:focus-within{
+            box-shadow: $shadow;
+            border: 1px solid $ligth-blue;
+        }
+    }
+
+    &__player--input {
+        background-color: transparent;
+        border: none;
+        outline: transparent;
+        text-align: left;
+        line-height: calculator-rem(48);
+        font-size: $font-size-m;
+        color: $grey;
+        padding: 0;
+        flex-grow: 1;
+    }
+
+    &__player--input-switcher {
+        box-sizing: border-box;
+        width: 56px;
+        height: 32px;
+        background-color: $ligth-blue;
+        border-radius: 100px;
+
+        position: relative;
+
+        &::before {
+            content: '';
+            background-color: $white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            position: absolute;
+            left: 90%;
+            top: 50%;
+
+            transform: translate(-100%, -50%);
+
+            display: block;
+        }
+    }
+
+    &__player--input-switcher-2 {
+        background-color: $dark-blue;
+        border: 1.5px solid $white;
+    }
+
+    &__round-type {
+        margin-top: calculator-rem(40);
+        display: flex;
+        flex-direction: column;
+        font-size: $font-size-m;
+        line-height: $font-size-l;
+
+        &--title {
+            text-align: center;
+            color: $green;
+            font-weight: 700;
+        }
+
+        &-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: calculator-rem(15);
+            color: $white;
+        }
+    }
+
+    &__button {
+        background-color: $green;
+        border: none;
+        border-radius: 10px;
+        color: $white;
+        font-size: $font-size-l;
+        line-height: $font-size-l;
+        font-weight: 500;
+        box-shadow: $shadow;
+        box-sizing: border-box;
+        padding: 15px;
+        margin-top: calculator-rem(45);
+        transition: 200ms;
+
+        &--play:hover {
+            background-color: darken($color: $green, $amount: 20%);
+            cursor: pointer;
+        }
+
+        &--reset {
+            background-color: $white;
+            color: $dark-blue;
+            justify-self: end;
+
+            &:hover {
+                background-color: lighten($color: $grey, $amount: 40%);
+                cursor: pointer;
+            }    
+        }
+    }
+
+    &__round-moves {
+        display: flex;
+        flex-direction: column;
+        margin-top: calculator-rem(38);
+        flex-grow: 1;
+
+        &--title {
+            font-size: $font-size-m;
+            color: $white;
+            font-weight: 700;
+            text-align: center;
+        }
+    }
+
+    &__moves {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: calculator-rem(20);
+    }
+
+    &__moves-winner {
+        width: 168px;
+        display: flex;
+        flex-direction: column;
+        background-color: $white;
+        border-radius: 10px;
+        box-sizing: border-box;
+        padding:  3px 15px;
+
+        font-size: $font-size-s;
+        line-height: 22px;
+
+        &--title {
+            color: $green;
+            font-weight: 700;
+        }
+
+        &--name {
+            color: $grey;
+            font-weight: 400;
+        }
+        
+        &--scenery {
+            color: $white;
+            font-weight: 400;
+        }
+    }
+
+    &__moves-mini-board {
+        display: grid;
+        grid-template-columns: 15px 15px 15px;
+        grid-template-rows: 15px 15px 15px;
+        gap: 2px;
+
+        &--item {
+            text-align: center;
+            color: $grey;
+            font-weight: 700;
+            font-size: $font-size-xs;
+            line-height: $font-size-s;
+            background-color: $white;
+            border-radius: 2px;
+        }
+    }
+}
+
+.game-box {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: calculator-rem(600);
+
+    background-color: $ligth-blue;
+    box-sizing: border-box;
+    padding: 50px 45px;
+
+    &__scoreboard {
+        width: 100%;
+        max-width: 400px;
+        background-color: $white;
+        box-sizing: border-box;
+        padding: 11px 30px 19px;
+        border-radius: 15px;
+        margin: 0 auto;
+
+        &--title {
+            text-align: center;
+            color: $dark-blue;
+            font-size: $font-size-l;
+            line-height: $font-size-l;
+            font-weight: 700;
+        }
+
+        &-points {
+            display: flex;
+            margin-top: 11px;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    &__scoreboard--point {
+        color: $dark-blue;
+        font-size: $font-size-xl;
+        font-weight: 700;
+    }
+
+    &__scoreboard--player {
+        color: $grey;
+        font-size: $font-size-m;
+        font-weight: 500;
+    }
+
+    &__moves-board {
+        width: 100%;
+        max-width: 510px;
+        margin: 0 auto;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        margin-top: calculator-rem(70);
+        gap: 15px;
+
+        &--item {
+            background-color: $white;
+            border-radius: 15px;
+            text-align: center;
+            font-size: $font-size-xxl;
+            line-height: 160px;
+            color: $grey;
+            font-weight: 700;
+            box-sizing: border-box;
+        }
+    }
+}
+
+.moves-box {
+    width: 100%;
+    max-width: 387px;
+    display: flex;
+    flex-direction: column;
+    background-color: $dark-blue;
+    box-sizing: border-box;
+    padding: 68px 35px;
+
+    &__title {
+        color: $white;
+        text-align: center;
+        font-size: $font-size-m;
+        font-weight: 700;
+    }
+
+    &__move-list {
+        margin-top: 28px;
+    }
+    
+    &__move-list--item {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background-color: $white;
+        border-radius: 10px;
+        box-sizing: border-box;
+        padding: 3px 10px;
+        margin-bottom: calculator-rem(20);
+
+        &-icon {
+            color: $grey;
+            font-size: $font-size-xl;
+            font-weight: 700;
+            margin-right: 16px;
+        }
+    }
+
+    &__move-text {
+        display: flex;
+        flex-direction: column;
+        font-size: $font-size-s;
+        line-height: 21px;
+        flex-grow: 1;
+
+        &--name {
+            color: $grey;
+            font-weight: 700;
+        }
+
+        &--position {
+            color: $dark-blue;
+            font-weight: 400;
+        }
+    }
+
+
+}

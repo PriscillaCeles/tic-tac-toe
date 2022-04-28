@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./assets/style.css">
+
+    <script src="index.js" defer></script>
+
+    <title>HTC | Tic-Tac-Toe</title>
+
+</head>
+
+<body>
+    <section class="start-box">
+        <form class="start-box__form">
+            <div class="start-box__player">
+                <input class="start-box__player--input" type="text" placeholder="Jogador 1"></input>
+            </div>
+            <div class="start-box__player">
+                <input class="start-box__player--input" type="text" placeholder="Jogador 2"></input>
+                <div class="start-box__player--input-switcher"></div>
+            </div>
+        </form>
+
+        <article class="start-box__round-type">
+            <h2 class="start-box__round-type--title">Tipo de Partida</h2>
+            <div class="start-box__round-type-options">
+                <span>Melhor de 3</span>
+                <div class="start-box__player--input-switcher start-box__player--input-switcher-2"></div>
+                <span>Melhor de 5</span>
+            </div>
+        </article>
+
+        <button class="start-box__button start-box__button--play">Jogar</button>
+
+        <article class="start-box__round-moves">
+            <h3 class="start-box__round-moves--title">Histórico de Partidas</h3>
+            <div class="start-box__moves">
+                <div class="start-box__moves-winner">
+                    <strong class="start-box__moves-winner--title">Vencedor</strong>
+                    <span class="start-box__moves-winner--name">Priscilla Celes</span>
+                </div>
+                <span class="start-box__moves-winner--scenery">Cenário</span>
+                <div class="start-box__moves-mini-board">
+                    <span class="start-box__moves-mini-board--item">O</span>
+                    <span class="start-box__moves-mini-board--item">O</span>
+                    <span class="start-box__moves-mini-board--item">X</span>
+                    <span class="start-box__moves-mini-board--item">O</span>
+                    <span class="start-box__moves-mini-board--item">X</span>
+                    <span class="start-box__moves-mini-board--item">X</span>
+                    <span class="start-box__moves-mini-board--item"></span>
+                    <span class="start-box__moves-mini-board--item">O</span>
+                    <span class="start-box__moves-mini-board--item">X</span>
+                </div>
+            </div>
+        </article>
+
+        <button class="start-box__button start-box__button--reset">Reiniciar</button>
+    </section>
+
+    <section class="game-box">
+        <div class="game-box__scoreboard">
+            <h2 class="game-box__scoreboard--title">Placar</h2>
+            <div class="game-box__scoreboard-points">
+                <small class="game-box__scoreboard--point">01</small>
+                <p class="game-box__scoreboard--player">Jogador 1</p>
+                <small class="game-box__scoreboard--point">01</small>
+            </div>
+        </div>
+
+        <div class="game-box__moves-board">
+            <span class="game-box__moves-board--item">X</span>
+            <span class="game-box__moves-board--item">O</span>
+            <span class="game-box__moves-board--item"></span>
+            <span class="game-box__moves-board--item"></span>
+            <span class="game-box__moves-board--item"></span>
+            <span class="game-box__moves-board--item"></span>
+            <span class="game-box__moves-board--item"></span>
+            <span class="game-box__moves-board--item"></span>
+            <span class="game-box__moves-board--item"></span>
+        </div>
+    </section>
+
+    <section class="moves-box">
+        <h3 class="moves-box__title">Histórico de Jogadas</h3>
+
+        <ul class="moves-box__move-list">
+
+            <li class="moves-box__move-list--item">
+                <small class="moves-box__move-list--item-icon">O</small>
+                <div class="moves-box__move-text">
+                    <strong class="moves-box__move-text--name">Priscilla Celes</strong>
+                    <span class="moves-box__move-text--position">Primeiro Quadrado</span>
+                </div>
+            </li>
+            <li class="moves-box__move-list--item">
+                <small class="moves-box__move-list--item-icon">X</small>
+                <div class="moves-box__move-text">
+                    <strong class="moves-box__move-text--name">Jogador 2</strong>
+                    <span class="moves-box__move-text--position">Segundo Quadrado</span>
+                </div>
+            </li>
+        </ul>
+    </section>
+</body>
+
+</html>
