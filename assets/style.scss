@@ -63,6 +63,8 @@ body {
         box-sizing: border-box;
         padding: 4px;
 
+        cursor: pointer;
+
         position: relative;
 
         &::before {
@@ -72,7 +74,27 @@ body {
             height: 24px;
             border-radius: 50%;
             position: absolute;
-            left: 90%;
+            left: 95%;
+            top: 50%;
+
+            transform: translate(-100%, -50%);
+
+            display: block;
+        }
+    }
+
+    &__player--input-switcher-toggle {
+
+        position: relative;
+
+        &::before {
+            content: '';
+            background-color: $white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
             top: 50%;
 
             transform: translate(-100%, -50%);
@@ -338,6 +360,4 @@ body {
             font-weight: 400;
         }
     }
-
-
 }

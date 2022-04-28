@@ -131,6 +131,7 @@ body {
   border-radius: 100px;
   box-sizing: border-box;
   padding: 4px;
+  cursor: pointer;
   position: relative;
 }
 
@@ -141,7 +142,25 @@ body {
   height: 24px;
   border-radius: 50%;
   position: absolute;
-  left: 90%;
+  left: 95%;
+  top: 50%;
+  -webkit-transform: translate(-100%, -50%);
+          transform: translate(-100%, -50%);
+  display: block;
+}
+
+.start-box__player--input-switcher-toggle {
+  position: relative;
+}
+
+.start-box__player--input-switcher-toggle::before {
+  content: '';
+  background-color: #FFFFFF;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
   top: 50%;
   -webkit-transform: translate(-100%, -50%);
           transform: translate(-100%, -50%);
