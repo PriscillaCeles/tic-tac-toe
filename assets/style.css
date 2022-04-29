@@ -61,8 +61,6 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 100vh;
-  width: 100vw;
 }
 
 .start-box {
@@ -495,5 +493,12 @@ body {
 .moves-box__move-text--position {
   color: #0097E6;
   font-weight: 400;
+}
+
+@media screen and (min-height: 780px) {
+  body {
+    height: 100vh;
+    width: 100vw;
+  }
 }
 /*# sourceMappingURL=style.css.map */

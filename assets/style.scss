@@ -9,8 +9,6 @@
 
 body {
     display: flex;
-    height: 100vh;
-    width: 100vw;
 }
 
 .start-box {
@@ -363,3 +361,9 @@ body {
     }
 }
 
+@media screen and (min-height:780px) {
+    body {
+        height: 100vh;
+        width: 100vw;
+    }
+}
