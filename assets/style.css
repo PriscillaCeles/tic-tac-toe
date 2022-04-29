@@ -206,6 +206,7 @@ body {
 }
 
 .start-box__button {
+  width: 100%;
   background-color: #45F391;
   border: none;
   border-radius: 10px;
@@ -493,6 +494,14 @@ body {
 .moves-box__move-text--position {
   color: #0097E6;
   font-weight: 400;
+}
+
+.start {
+  background-color: #fa6400;
+}
+
+.start:hover {
+  background-color: #ffa061;
 }
 
 @media screen and (min-height: 780px) {

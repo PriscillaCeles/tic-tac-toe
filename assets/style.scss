@@ -131,6 +131,7 @@ body {
     }
 
     &__button {
+        width: 100%;
         background-color: $green;
         border: none;
         border-radius: 10px;
@@ -360,6 +361,16 @@ body {
         }
     }
 }
+
+.start {
+    background-color: $orange;
+
+    &:hover{
+        background-color: lighten($color: $orange, $amount: 20%)
+    }
+}
+
+
 
 @media screen and (min-height:780px) {
     body {

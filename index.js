@@ -6,6 +6,9 @@ const $player2Name = document.querySelector(".player--input-player-2");
 
 const $winnerPrint = document.querySelector(".start-box__moves-winner--name");
 
+const $startButton = document.querySelector(".start-box__button--play");
+const $resettButton = document.querySelector(".start-box__button--reset");
+
 const $scorePlayer1 = document.querySelector('.scoreboard-score-1')
 const $scorePlayer2 = document.querySelector('.scoreboard-score-2')
 
@@ -15,6 +18,8 @@ const $switcher = document.querySelector(".start-box__player--input-switcher");
 const $switcher2 = document.querySelector(".start-box__player--input-switcher-2");
 
 let movePlayer = "X";
+
+let gameStart = false
 
 let score1 = 0
 let score2 = 0
@@ -61,6 +66,7 @@ function printScore () {
 
 function verifyGame() {
     for (let contador = 0; contador < $boardField.length; contador++) {
+
     if (
         ($boardField[0].textContent != "" &&
         $boardField[0].textContent == $boardField[2].textContent &&
@@ -94,31 +100,40 @@ function verifyGame() {
 
 $boardField.forEach(function ($field) {
     $field.addEventListener("click", function () {
-    if ($field.innerHTML != "") {
-        return;
-    }
+        if(gameStart){
+            if ($field.innerHTML != "") {
+                return;
+            }
 
-    $field.innerHTML = movePlayer;
+            $field.innerHTML = movePlayer;
+            const gameResult = verifyGame();
 
-    const gameResult = verifyGame();
-
-    console.log(gameResult);
-
-    if (gameResult != undefined && gameResult == "X") {
-        $winnerPrint.innerHTML = $player1Name.value;
-        score1 += 1
-        setTimeout (resetBoard, 500)
-    } else if (gameResult != undefined && gameResult == "O") {
-        $winnerPrint.innerHTML = $player2Name.value;
-        score2 += 1
-        setTimeout (resetBoard, 500)
-    }
-    printScore()
-
-    toggleMove();
+            if (gameResult != undefined && gameResult == "X") {
+                $winnerPrint.innerHTML = $player1Name.value;
+                score1 += 1
+                setTimeout (resetBoard, 800)
+                movePlayer = "O"
+            } else if (gameResult != undefined && gameResult == "O") {
+                $winnerPrint.innerHTML = $player2Name.value;
+                score2 += 1
+                setTimeout (resetBoard, 800)
+                movePlayer = "O"
+            }
+            printScore()
+            toggleMove();
+        }
     });
 });
 
+$startButton.addEventListener('click', function() {
+    gameStart = !gameStart
+    $startButton.classList.toggle('start')
+    if (gameStart) {
+        $playerRound.innerHTML = $player1Name.value
+    }
+})
+
+// Checkbox Buttons
 $switcher.addEventListener("click", function () {
     $switcher.classList.toggle("start-box__player--input-switcher-toggle");
 });
