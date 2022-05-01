@@ -128,7 +128,6 @@ body {
   background-color: #2BA9EA;
   border-radius: 100px;
   box-sizing: border-box;
-  padding: 4px;
   cursor: pointer;
   position: relative;
 }
@@ -140,7 +139,7 @@ body {
   height: 24px;
   border-radius: 50%;
   position: absolute;
-  left: 95%;
+  left: 93%;
   top: 50%;
   -webkit-transform: translate(-100%, -50%);
           transform: translate(-100%, -50%);
@@ -150,7 +149,7 @@ body {
 }
 
 .start-box__player--input-switcher-toggle {
-  position: relative;
+  background-color: #fa6400;
 }
 
 .start-box__player--input-switcher-toggle::before {
@@ -168,6 +167,8 @@ body {
 }
 
 .start-box__player--input-switcher-2 {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   background-color: #0097E6;
   border: 1.5px solid #FFFFFF;
 }

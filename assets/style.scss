@@ -60,7 +60,6 @@ body {
         background-color: $ligth-blue;
         border-radius: 100px;
         box-sizing: border-box;
-        padding: 4px;
 
         cursor: pointer;
 
@@ -73,7 +72,7 @@ body {
             height: 24px;
             border-radius: 50%;
             position: absolute;
-            left: 95%;
+            left: 93%;
             top: 50%;
 
             transform: translate(-100%, -50%);
@@ -85,7 +84,7 @@ body {
 
     &__player--input-switcher-toggle {
 
-        position: relative;
+        background-color: $orange;
 
         &::before {
             content: '';
@@ -104,6 +103,7 @@ body {
     }
 
     &__player--input-switcher-2 {
+        box-sizing: border-box;
         background-color: $dark-blue;
         border: 1.5px solid $white;
     }
