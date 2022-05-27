@@ -127,13 +127,12 @@ body {
   height: 32px;
   background-color: #2BA9EA;
   border-radius: 100px;
-  box-sizing: border-box;
   cursor: pointer;
   position: relative;
 }
 
 .start-box__player--input-switcher::before {
-  content: '';
+  content: "";
   background-color: #FFFFFF;
   width: 24px;
   height: 24px;
@@ -146,8 +145,8 @@ body {
   -webkit-transform: translate(-100%, -50%);
           transform: translate(-100%, -50%);
   display: block;
-  -webkit-transition: 300ms;
-  transition: 300ms;
+  -webkit-transition: 400ms;
+  transition: 400ms;
 }
 
 .start-box__player--input-switcher-toggle {
@@ -155,22 +154,10 @@ body {
 }
 
 .start-box__player--input-switcher-toggle::before {
-  content: '';
-  background-color: #FFFFFF;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  position: absolute;
   left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-100%, -50%);
-          transform: translate(-100%, -50%);
-  display: block;
 }
 
 .start-box__player--input-switcher-2 {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   background-color: #0097E6;
   border: 1.5px solid #FFFFFF;
 }

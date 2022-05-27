@@ -2,380 +2,362 @@
 @import "_variables.scss";
 @import "./functions";
 
-
 * {
-    font-family: $font;
+  font-family: $font;
 }
 
 body {
-    display: flex;
+  display: flex;
 }
 
 .start-box {
-    width: calculator-rem(387);
-    max-width: 387px;
+  width: calculator-rem(387);
+  max-width: 387px;
+  background-color: $dark-blue;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 50px 35px;
+
+  &__player {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 10px;
+    background-color: $white;
+    box-sizing: border-box;
+    padding: 0 9px 0 15px;
+
+    &:last-child {
+      margin-top: calculator-rem(20);
+    }
+
+    &:focus-within {
+      box-shadow: $shadow;
+      border: 1px solid $ligth-blue;
+    }
+  }
+
+  &__player--input {
+    background-color: transparent;
+    border: none;
+    outline: transparent;
+    text-align: left;
+    line-height: calculator-rem(48);
+    font-size: $font-size-m;
+    color: $grey;
+    padding: 0;
+    flex-grow: 1;
+  }
+
+  &__player--input-switcher {
+    box-sizing: border-box;
+    width: 56px;
+    height: 32px;
+    background-color: $ligth-blue;
+    border-radius: 100px;
+
+    cursor: pointer;
+
+    position: relative;
+
+    &::before {
+      content: "";
+      background-color: $white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      box-shadow: inset 0 0 2px $grey;
+      position: absolute;
+      left: 93%;
+      top: 50%;
+
+      transform: translate(-100%, -50%);
+
+      display: block;
+      transition: 400ms;
+    }
+  }
+
+  &__player--input-switcher-toggle {
+    background-color: $orange;
+
+    &::before {
+      left: 50%;
+    }
+  }
+
+  &__player--input-switcher-2 {
     background-color: $dark-blue;
+    border: 1.5px solid $white;
+  }
+
+  &__round-type {
+    margin-top: calculator-rem(40);
     display: flex;
     flex-direction: column;
+    font-size: $font-size-m;
+    line-height: $font-size-l;
+
+    &--title {
+      text-align: center;
+      color: $green;
+      font-weight: 700;
+    }
+
+    &-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: calculator-rem(15);
+      color: $white;
+    }
+  }
+
+  &__button {
+    width: 100%;
+    background-color: $green;
+    border: none;
+    border-radius: 10px;
+    color: $white;
+    font-size: $font-size-l;
+    line-height: $font-size-l;
+    font-weight: 500;
+    box-shadow: $shadow;
     box-sizing: border-box;
-    padding: 50px 35px;
+    padding: 15px;
+    margin-top: calculator-rem(45);
+    transition: 200ms;
 
-    &__player {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 48px;
-        border: none;
-        border-radius: 10px;
-        background-color: $white;
-        box-sizing: border-box;
-        padding: 0 9px 0 15px ;
-
-        &:last-child {
-            margin-top: calculator-rem(20);
-        }
-
-        &:focus-within{
-            box-shadow: $shadow;
-            border: 1px solid $ligth-blue;
-        }
+    &--play:hover {
+      background-color: darken($color: $green, $amount: 20%);
+      cursor: pointer;
     }
 
-    &__player--input {
-        background-color: transparent;
-        border: none;
-        outline: transparent;
-        text-align: left;
-        line-height: calculator-rem(48);
-        font-size: $font-size-m;
-        color: $grey;
-        padding: 0;
-        flex-grow: 1;
-    }
+    &--reset {
+      background-color: $white;
+      color: $dark-blue;
+      justify-self: end;
 
-    &__player--input-switcher {
-        box-sizing: border-box;
-        width: 56px;
-        height: 32px;
-        background-color: $ligth-blue;
-        border-radius: 100px;
-        box-sizing: border-box;
-
+      &:hover {
+        background-color: lighten($color: $grey, $amount: 40%);
         cursor: pointer;
+      }
+    }
+  }
 
-        position: relative;
+  &__round-moves {
+    display: flex;
+    flex-direction: column;
+    margin-top: calculator-rem(38);
+    flex-grow: 1;
 
-        &::before {
-            content: '';
-            background-color: $white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            box-shadow: inset 0 0 2px $grey;
-            position: absolute;
-            left: 93%;
-            top: 50%;
+    &--title {
+      font-size: $font-size-m;
+      color: $white;
+      font-weight: 700;
+      text-align: center;
+    }
+  }
 
-            transform: translate(-100%, -50%);
+  &__moves {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: calculator-rem(20);
+  }
 
-            display: block;
-            transition: 300ms;
-        }
+  &__moves-winner {
+    width: 168px;
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 3px 15px;
+
+    font-size: $font-size-s;
+    line-height: 22px;
+
+    &--title {
+      color: $green;
+      font-weight: 700;
     }
 
-    &__player--input-switcher-toggle {
-
-        background-color: $orange;
-
-        &::before {
-            content: '';
-            background-color: $white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-
-            transform: translate(-100%, -50%);
-
-            display: block;
-        }
+    &--name {
+      color: $grey;
+      font-weight: 400;
     }
 
-    &__player--input-switcher-2 {
-        box-sizing: border-box;
-        background-color: $dark-blue;
-        border: 1.5px solid $white;
+    &--scenery {
+      color: $white;
+      font-weight: 400;
     }
+  }
 
-    &__round-type {
-        margin-top: calculator-rem(40);
-        display: flex;
-        flex-direction: column;
-        font-size: $font-size-m;
-        line-height: $font-size-l;
+  &__moves-mini-board {
+    display: grid;
+    grid-template-columns: repeat(3, 15px);
+    grid-template-rows: repeat(3, 15px);
+    gap: 2px;
 
-        &--title {
-            text-align: center;
-            color: $green;
-            font-weight: 700;
-        }
-
-        &-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: calculator-rem(15);
-            color: $white;
-        }
+    &--item {
+      text-align: center;
+      color: $grey;
+      font-weight: 700;
+      font-size: $font-size-xs;
+      line-height: $font-size-s;
+      background-color: $white;
+      border-radius: 2px;
     }
-
-    &__button {
-        width: 100%;
-        background-color: $green;
-        border: none;
-        border-radius: 10px;
-        color: $white;
-        font-size: $font-size-l;
-        line-height: $font-size-l;
-        font-weight: 500;
-        box-shadow: $shadow;
-        box-sizing: border-box;
-        padding: 15px;
-        margin-top: calculator-rem(45);
-        transition: 200ms;
-
-        &--play:hover {
-            background-color: darken($color: $green, $amount: 20%);
-            cursor: pointer;
-        }
-
-        &--reset {
-            background-color: $white;
-            color: $dark-blue;
-            justify-self: end;
-
-            &:hover {
-                background-color: lighten($color: $grey, $amount: 40%);
-                cursor: pointer;
-            }    
-        }
-    }
-
-    &__round-moves {
-        display: flex;
-        flex-direction: column;
-        margin-top: calculator-rem(38);
-        flex-grow: 1;
-
-        &--title {
-            font-size: $font-size-m;
-            color: $white;
-            font-weight: 700;
-            text-align: center;
-        }
-    }
-
-    &__moves {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: calculator-rem(20);
-    }
-
-    &__moves-winner {
-        width: 168px;
-        display: flex;
-        flex-direction: column;
-        background-color: $white;
-        border-radius: 10px;
-        box-sizing: border-box;
-        padding:  3px 15px;
-
-        font-size: $font-size-s;
-        line-height: 22px;
-
-        &--title {
-            color: $green;
-            font-weight: 700;
-        }
-
-        &--name {
-            color: $grey;
-            font-weight: 400;
-        }
-        
-        &--scenery {
-            color: $white;
-            font-weight: 400;
-        }
-    }
-
-    &__moves-mini-board {
-        display: grid;
-        grid-template-columns: repeat(3, 15px);
-        grid-template-rows: repeat(3, 15px);
-        gap: 2px;
-
-        &--item {
-            text-align: center;
-            color: $grey;
-            font-weight: 700;
-            font-size: $font-size-xs;
-            line-height: $font-size-s;
-            background-color: $white;
-            border-radius: 2px;
-        }
-    }
+  }
 }
 
 .game-box {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    min-width: calculator-rem(530);
-    background-color: $ligth-blue;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: calculator-rem(530);
+  background-color: $ligth-blue;
+  box-sizing: border-box;
+  padding: 50px 45px;
+
+  &__scoreboard {
+    width: 100%;
+    max-width: 400px;
+    background-color: $white;
     box-sizing: border-box;
-    padding: 50px 45px;
+    padding: 11px 30px 19px;
+    border-radius: 15px;
+    margin: 0 auto;
 
-    &__scoreboard {
-        width: 100%;
-        max-width: 400px;
-        background-color: $white;
-        box-sizing: border-box;
-        padding: 11px 30px 19px;
-        border-radius: 15px;
-        margin: 0 auto;
-
-        &--title {
-            text-align: center;
-            color: $dark-blue;
-            font-size: $font-size-l;
-            line-height: $font-size-l;
-            font-weight: 700;
-        }
-
-        &-points {
-            display: flex;
-            margin-top: 11px;
-            justify-content: space-between;
-            align-items: center;
-        }
+    &--title {
+      text-align: center;
+      color: $dark-blue;
+      font-size: $font-size-l;
+      line-height: $font-size-l;
+      font-weight: 700;
     }
 
-    &__scoreboard--point {
-        color: $dark-blue;
-        font-size: $font-size-xl;
-        line-height: 35px;
-        font-weight: 700;
+    &-points {
+      display: flex;
+      margin-top: 11px;
+      justify-content: space-between;
+      align-items: center;
     }
+  }
 
-    &__scoreboard--player {
-        color: $grey;
-        font-size: $font-size-m;
-        font-weight: 500;
+  &__scoreboard--point {
+    color: $dark-blue;
+    font-size: $font-size-xl;
+    line-height: 35px;
+    font-weight: 700;
+  }
+
+  &__scoreboard--player {
+    color: $grey;
+    font-size: $font-size-m;
+    font-weight: 500;
+  }
+
+  &__moves-board {
+    width: 100%;
+    max-width: 510px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 160px);
+    grid-template-rows: repeat(3, 160px);
+    margin-top: calculator-rem(70);
+    gap: 15px;
+
+    &--item {
+      background-color: $white;
+      border-radius: 15px;
+      text-align: center;
+      font-size: $font-size-xxl;
+      line-height: 160px;
+      color: $grey;
+      font-weight: 700;
+      box-sizing: border-box;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
-
-    &__moves-board {
-        width: 100%;
-        max-width: 510px;
-        margin: 0 auto;
-
-        display: grid;
-        grid-template-columns: repeat(3, 160px);
-        grid-template-rows: repeat(3, 160px);
-        margin-top: calculator-rem(70);
-        gap: 15px;
-
-        &--item {
-            background-color: $white;
-            border-radius: 15px;
-            text-align: center;
-            font-size: $font-size-xxl;
-            line-height: 160px;
-            color: $grey;
-            font-weight: 700;
-            box-sizing: border-box;
-
-            &:hover {
-                cursor: pointer;
-            }
-
-        }
-    }
+  }
 }
 
 .moves-box {
+  width: 100%;
+  max-width: 387px;
+  display: flex;
+  flex-direction: column;
+  background-color: $dark-blue;
+  box-sizing: border-box;
+  padding: 68px 35px;
+
+  &__title {
+    color: $white;
+    text-align: center;
+    font-size: $font-size-m;
+    font-weight: 700;
+  }
+
+  &__move-list {
+    margin-top: 28px;
+  }
+
+  &__move-list--item {
+    display: flex;
+    align-items: center;
     width: 100%;
-    max-width: 387px;
+    background-color: $white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 3px 10px;
+    margin-bottom: calculator-rem(20);
+
+    &-icon {
+      color: $grey;
+      font-size: $font-size-xl;
+      font-weight: 700;
+      margin-right: 16px;
+    }
+  }
+
+  &__move-text {
     display: flex;
     flex-direction: column;
-    background-color: $dark-blue;
-    box-sizing: border-box;
-    padding: 68px 35px;
+    font-size: $font-size-s;
+    line-height: 21px;
+    flex-grow: 1;
 
-    &__title {
-        color: $white;
-        text-align: center;
-        font-size: $font-size-m;
-        font-weight: 700;
+    &--name {
+      color: $grey;
+      font-weight: 700;
     }
 
-    &__move-list {
-        margin-top: 28px;
+    &--position {
+      color: $dark-blue;
+      font-weight: 400;
     }
-    
-    &__move-list--item {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        background-color: $white;
-        border-radius: 10px;
-        box-sizing: border-box;
-        padding: 3px 10px;
-        margin-bottom: calculator-rem(20);
-
-        &-icon {
-            color: $grey;
-            font-size: $font-size-xl;
-            font-weight: 700;
-            margin-right: 16px;
-        }
-    }
-
-    &__move-text {
-        display: flex;
-        flex-direction: column;
-        font-size: $font-size-s;
-        line-height: 21px;
-        flex-grow: 1;
-
-        &--name {
-            color: $grey;
-            font-weight: 700;
-        }
-
-        &--position {
-            color: $dark-blue;
-            font-weight: 400;
-        }
-    }
+  }
 }
 
 .start {
-    background-color: $orange;
+  background-color: $orange;
 
-    &:hover{
-        background-color: lighten($color: $orange, $amount: 20%)
-    }
+  &:hover {
+    background-color: lighten($color: $orange, $amount: 20%);
+  }
 }
 
-
-
-@media screen and (min-height:780px) {
-    body {
-        height: 100vh;
-        width: 100vw;
-    }
+@media screen and (min-height: 780px) {
+  body {
+    height: 100vh;
+    width: 100vw;
+  }
 }

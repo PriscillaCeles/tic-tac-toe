@@ -1,19 +1,16 @@
-//#region CONSTANTS
-const $boardFieldList = document.querySelectorAll(".game-box__moves-board--item");
-
+//#region GLOBAL CONSTANTS
+const $boardFieldList = document.querySelectorAll(
+  ".game-box__moves-board--item"
+);
 const $player1Name = document.querySelector(".player--input-player-1");
 const $player2Name = document.querySelector(".player--input-player-2");
-
-const $roundMovesWinner = document.querySelector(".start-box__round-moves");
+const $turnMovesHistoryList = document.querySelector(".moves-box__move-list");
 const $winnerPrint = document.querySelector(".start-box__moves-winner--name");
-
 const $startButton = document.querySelector(".start-box__button--play");
 const $resetButton = document.querySelector(".start-box__button--reset");
-
 const $scorePlayer1 = document.querySelector(".scoreboard-score-1");
 const $scorePlayer2 = document.querySelector(".scoreboard-score-2");
-const $playerRound = document.querySelector(".game-box__scoreboard--player");
-
+const $playerTurn = document.querySelector(".game-box__scoreboard--player");
 const $switcher = document.querySelector(".start-box__player--input-switcher");
 const $switcher2 = document.querySelector(
   ".start-box__player--input-switcher-2"
@@ -27,20 +24,128 @@ const winConditions = [
   [1, 4, 7],
   [2, 5, 8],
   [0, 4, 8],
-  [2, 4, 6]
-]
+  [2, 4, 6],
+];
 //#endregion
 
-//#region VARIABLES
+//#region GLOBAL VARIABLES
 let movePlayer = "X";
-
 let gameStart = false;
-
 let score1 = 0;
 let score2 = 0;
 //#endregion
 
 //#region FUNCTIONS
+//** MOVE AND SCORE */
+function toggleMove() {
+  movePlayer = movePlayer === "X" ? "O" : "X";
+  printPlayerTurn(movePlayer);
+}
+
+function printPlayerTurn(move) {
+  $playerTurn.textContent =
+    move === "X" ? $player1Name.value : $player2Name.value;
+}
+
+function printScore() {
+  $scorePlayer1.textContent = score1 < 10 ? "0" + score1 : score1;
+  $scorePlayer2.textContent = score1 < 10 ? "0" + score2 : score2;
+}
+
+function verifyGame() {
+  let filledFields = 0;
+
+  for (const condition of winConditions) {
+    const fieldIndex0 = condition[0];
+    const fieldIndex1 = condition[1];
+    const fieldIndex2 = condition[2];
+
+    const $field0 = $boardFieldList[fieldIndex0];
+    const $field1 = $boardFieldList[fieldIndex1];
+    const $field2 = $boardFieldList[fieldIndex2];
+
+    if (
+      $field0.textContent != "" &&
+      $field0.textContent == $field1.textContent &&
+      $field1.textContent == $field2.textContent
+    ) {
+      return movePlayer;
+    }
+  }
+
+  for (const $field of $boardFieldList) {
+    if ($field.textContent != "") filledFields++;
+  }
+  if (filledFields === 9) return "draw";
+}
+
+$boardFieldList.forEach(function ($field, index) {
+  $field.addEventListener("click", function () {
+    if (gameStart) {
+      if ($field.textContent != "") return;
+
+      $field.textContent = movePlayer;
+
+      const gameResult = verifyGame();
+      const playerName =
+        movePlayer === "X" ? $player1Name.value : $player2Name.value;
+
+      if (gameResult === "X" || gameResult === "O") {
+        printWinnerName(playerName);
+        addPoint(gameResult);
+        setTimeout(resetBoard, 800);
+        setTimeout(resetMoveHistory, 800);
+      }
+
+      if (gameResult == "draw") {
+        $winnerPrint.textContent = "Empate";
+        setTimeout(resetBoard, 800);
+        setTimeout(resetMoveHistory, 800);
+      }
+
+      console.log(index);
+      printMoveHistory(movePlayer, playerName, index);
+      printScore();
+      toggleMove();
+    }
+  });
+});
+
+function addPoint(winner) {
+  if (winner === "X") score1++;
+  if (winner === "O") score2++;
+}
+
+function printWinnerName(winnerName) {
+  $winnerPrint.textContent = winnerName;
+}
+
+//** MOVE HiStORY */
+function printMoveHistory(move, player, fieldIndex) {
+  const dictionaryIndexField = [
+    "Primeiro",
+    "Segundo",
+    "Terceiro",
+    "Quarto",
+    "Quinto",
+    "Sexto",
+    "Sétimo",
+    "Oitavo",
+    "Nono",
+  ];
+
+  $turnMovesHistoryList.innerHTML += `
+    <li class="moves-box__move-list--item">
+      <small class="moves-box__move-list--item-icon">${move}</small>
+      <div class="moves-box__move-text">
+        <strong class="moves-box__move-text--name">${player}</strong>
+        <span class="moves-box__move-text--position">${dictionaryIndexField[fieldIndex]} campo</span>
+      </div>
+    </li>
+  `;
+}
+
+//** RESETs */
 function resetBoard() {
   $boardFieldList[0].textContent = "";
   for (let i = 0; i < $boardFieldList.length; i++) {
@@ -49,8 +154,8 @@ function resetBoard() {
 }
 
 function resetScoreBoard() {
-  $scorePlayer1.innerHTML = "00";
-  $scorePlayer2.innerHTML = "00";
+  $scorePlayer1.textContent = "00";
+  $scorePlayer2.textContent = "00";
 }
 
 function resetScoreVariables() {
@@ -58,102 +163,21 @@ function resetScoreVariables() {
   score2 = 0;
 }
 
-function toggleMove() {
-  if (movePlayer == "X") {
-    movePlayer = "O";
-    $playerRound.innerHTML = $player2Name.value;
-  } else {
-    movePlayer = "X";
-    $playerRound.innerHTML = $player1Name.value;
-  }
-}
-
-function printScore() {
-  if (score1 < 10) {
-    $scorePlayer1.innerHTML = "0" + score1;
-  } else {
-    $scorePlayer1.innerHTML = score1;
-  }
-  if (score2 < 10) {
-    $scorePlayer2.innerHTML = "0" + score2;
-  } else {
-    $scorePlayer2.innerHTML = score2;
-  }
-}
-
-function verifyGame() {
-  let filledFields = 0;
-
-  for (const condition of winConditions) {
-    const fieldIndex0 = condition[0]
-    const fieldIndex1 = condition[1]
-    const fieldIndex2 = condition[2]
-
-    const $field0 = $boardFieldList[fieldIndex0]
-    const $field1 = $boardFieldList[fieldIndex1]
-    const $field2 = $boardFieldList[fieldIndex2]
-
-    if (
-      $field0.textContent != "" &&
-      $field0.textContent == $field1.textContent &&
-      $field1.textContent == $field2.textContent
-      ){
-        return movePlayer;
-      } 
-    }
-
-    for (const $field of $boardFieldList) {
-      if ($field.textContent != '') filledFields++
-    }
-
-    if (filledFields == 9) return 'draw'
-}
-
-function result() {
-  const gameResult = verifyGame();
-
-  if (gameResult != undefined && gameResult == "X") {
-    $winnerPrint.innerHTML = $player1Name.value;
-    score1 += 1;
-    setTimeout(resetBoard, 800);
-    movePlayer = "O";
-  } else if (gameResult != undefined && gameResult == "O") {
-    $winnerPrint.innerHTML = $player2Name.value;
-    score2 += 1;
-    setTimeout(resetBoard, 800);
-    movePlayer = "O";
-  }
-  if (gameResult == "draw"){
-    setTimeout(resetBoard, 800);
-    movePlayer = "O";
-    $winnerPrint.innerHTML = 'Empate';
-  }
+function resetMoveHistory() {
+  $turnMovesHistoryList.innerHTML = "";
 }
 //#endregion
 
-$boardFieldList.forEach(function ($field) {
-  $field.addEventListener("click", function () {
-    if (gameStart) {
-      if ($field.innerHTML != "") return;
-
-      $field.innerHTML = movePlayer;
-
-      result ();
-      printScore();
-      toggleMove();
-    }
-  });
-});
-
+//** START AND RESET BUTTONS */
 $startButton.addEventListener("click", function () {
   gameStart = !gameStart;
   $startButton.classList.toggle("start");
   if (gameStart) {
-    $playerRound.innerHTML = $player1Name.value;
+    $playerTurn.textContent = $player1Name.value;
   }
 });
 
-// Checkbox Buttons
+//** Checkbox Buttons */
 $switcher.addEventListener("click", function () {
   $switcher.classList.toggle("start-box__player--input-switcher-toggle");
 });
