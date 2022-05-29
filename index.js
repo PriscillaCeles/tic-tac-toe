@@ -79,38 +79,6 @@ function verifyGame() {
   if (filledFields === 9) return "draw";
 }
 
-$boardFieldList.forEach(function ($field, index) {
-  $field.addEventListener("click", function () {
-    if (gameStart) {
-      if ($field.textContent != "") return;
-
-      $field.textContent = movePlayer;
-
-      const gameResult = verifyGame();
-      const playerName =
-        movePlayer === "X" ? $player1Name.value : $player2Name.value;
-
-      if (gameResult === "X" || gameResult === "O") {
-        printWinnerName(playerName);
-        addPoint(gameResult);
-        setTimeout(resetBoard, 800);
-        setTimeout(resetMoveHistory, 800);
-      }
-
-      if (gameResult == "draw") {
-        $winnerPrint.textContent = "Empate";
-        setTimeout(resetBoard, 800);
-        setTimeout(resetMoveHistory, 800);
-      }
-
-      console.log(index);
-      printMoveHistory(movePlayer, playerName, index);
-      printScore();
-      toggleMove();
-    }
-  });
-});
-
 function addPoint(winner) {
   if (winner === "X") score1++;
   if (winner === "O") score2++;
@@ -147,10 +115,10 @@ function printMoveHistory(move, player, fieldIndex) {
 
 //** RESETs */
 function resetBoard() {
-  $boardFieldList[0].textContent = "";
   for (let i = 0; i < $boardFieldList.length; i++) {
     $boardFieldList[i].textContent = "";
   }
+  gameStart = true;
 }
 
 function resetScoreBoard() {
@@ -168,6 +136,40 @@ function resetMoveHistory() {
 }
 //#endregion
 
+//** MOVES */
+$boardFieldList.forEach(function ($field, index) {
+  $field.addEventListener("click", function () {
+    if (gameStart) {
+      if ($field.textContent != "") return;
+
+      $field.textContent = movePlayer;
+
+      const gameResult = verifyGame();
+      const playerName =
+        movePlayer === "X" ? $player1Name.value : $player2Name.value;
+
+      if (gameResult === "X" || gameResult === "O") {
+        gameStart = false;
+        printWinnerName(playerName);
+        addPoint(gameResult);
+        setTimeout(resetBoard, 800);
+        setTimeout(resetMoveHistory, 800);
+      }
+
+      if (gameResult == "draw") {
+        $winnerPrint.textContent = "Empate";
+        setTimeout(resetBoard, 800);
+        setTimeout(resetMoveHistory, 800);
+      }
+
+      console.log(index);
+      printMoveHistory(movePlayer, playerName, index);
+      printScore();
+      toggleMove();
+    }
+  });
+});
+
 //** START AND RESET BUTTONS */
 $startButton.addEventListener("click", function () {
   gameStart = !gameStart;
@@ -177,7 +179,18 @@ $startButton.addEventListener("click", function () {
   }
 });
 
-//** Checkbox Buttons */
+$resetButton.addEventListener("click", function () {
+  $startButton.classList.remove("start");
+  resetBoard();
+  resetMoveHistory();
+  resetScoreBoard();
+  resetScoreVariables();
+  $playerTurn.textContent = "";
+  $player1Name.textContent = "";
+  $player2Name.textContent = "";
+})
+
+//** CHECKBOX */
 $switcher.addEventListener("click", function () {
   $switcher.classList.toggle("start-box__player--input-switcher-toggle");
 });
