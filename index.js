@@ -10,11 +10,13 @@ const $startButton = document.querySelector(".start-box__button--play");
 const $resetButton = document.querySelector(".start-box__button--reset");
 const $scorePlayer1 = document.querySelector(".scoreboard-score-1");
 const $scorePlayer2 = document.querySelector(".scoreboard-score-2");
+const $winnerNameField = document.querySelector(".game-box__winner--name");
 const $playerTurn = document.querySelector(".game-box__scoreboard--player");
-const $switcher = document.querySelector(".start-box__player--input-switcher");
-const $switcher2 = document.querySelector(
+const $switcherBot = document.querySelector(".start-box__player--input-switcher");
+const $switcherBestOf = document.querySelector(
   ".start-box__player--input-switcher-2"
 );
+const $endGameHistory = document.querySelector(".start-box__moves-list");
 
 const winConditions = [
   [0, 1, 2],
@@ -33,6 +35,8 @@ let movePlayer = "X";
 let gameStart = false;
 let score1 = 0;
 let score2 = 0;
+let botActive = false;
+let bestOf = 5
 //#endregion
 
 //#region FUNCTIONS
@@ -40,6 +44,19 @@ let score2 = 0;
 function toggleMove() {
   movePlayer = movePlayer === "X" ? "O" : "X";
   printPlayerTurn(movePlayer);
+}
+
+function toggleBestOf() {
+  bestOf = bestOf === 5 ? 3 : 5
+}
+
+function getMoveScenery() {
+  const scenery = [];
+
+  for (const $board of $boardFieldList) {
+    scenery.push($board.textContent);
+  }
+  return scenery;
 }
 
 function printPlayerTurn(move) {
@@ -52,6 +69,28 @@ function printScore() {
   $scorePlayer2.textContent = score1 < 10 ? "0" + score2 : score2;
 }
 
+function printEndGameHistory(winner, scenery) {
+  let miniBoardScenery = "";
+
+  for (const move of scenery) {
+    miniBoardScenery += `<span class="start-box__moves-mini-board--item">${move}</span>`;
+  }
+
+  $endGameHistory.innerHTML += `
+  <li class="start-box__moves">
+      <div class="start-box__moves-winner">
+        <strong class="start-box__moves-winner--title">Vencedor</strong>
+        <span class="start-box__moves-winner--name">${winner}</span>
+      </div>
+      <span class="start-box__moves-winner--scenery">Cenário</span>
+      <div class="start-box__moves-mini-board">
+        ${miniBoardScenery}
+      </div>
+    </li>
+  `;
+}
+
+//** VERIFICATION */
 function verifyGame() {
   let filledFields = 0;
 
@@ -79,13 +118,15 @@ function verifyGame() {
   if (filledFields === 9) return "draw";
 }
 
+function verifyBestOf() {
+  if (score1 === 2 && bestOf === 3 || score1 === 3 && bestOf === 5) return "X";
+  if (score2 === 2 && bestOf === 3 || score2 === 3 && bestOf === 5) return "O";
+}
+
+//** POINTs */
 function addPoint(winner) {
   if (winner === "X") score1++;
   if (winner === "O") score2++;
-}
-
-function printWinnerName(winnerName) {
-  $winnerPrint.textContent = winnerName;
 }
 
 //** MOVE HiStORY */
@@ -134,39 +175,81 @@ function resetScoreVariables() {
 function resetMoveHistory() {
   $turnMovesHistoryList.innerHTML = "";
 }
-//#endregion
+
+function resetEndGameHistory() {
+  $endGameHistory.innerHTML = "";
+}
+
+function resetGameWinner() {
+  $winnerNameField.textContent = ""
+}
+
+//** WINNER */
+function gameWinner(winnerName) {
+  $winnerNameField.innerHTML = `O vencedor da melhor de ${bestOf} foi <strong>${winnerName}</strong>`
+}
 
 //** MOVES */
+function bot() {
+  const randomNumber = Math.random() * 9;
+  const index = Math.floor(randomNumber);
+  const $boardItem = $boardFieldList[index];
+  const game = verifyGame();
+
+  if ($boardItem.textContent != "" && game != "draw") return bot();
+
+  moveBoard(index, "bot");
+}
+
+function moveBoard(boardIndex, type) {
+  const $boardItem = $boardFieldList[boardIndex];
+
+  if (gameStart) {
+    if ($boardItem.textContent != "") return;
+
+    $boardItem.textContent = movePlayer;
+
+    const gameResult = verifyGame();
+    const scenery = getMoveScenery();
+    const playerName =
+      movePlayer === "X" ? $player1Name.value : $player2Name.value;
+
+    if (gameResult === "X" || gameResult === "O") {
+      gameStart = false;
+      addPoint(gameResult);
+      setTimeout(resetBoard, 800);
+      setTimeout(resetMoveHistory, 800);
+      printEndGameHistory(playerName, scenery);
+      movePlayer = "O"
+    }
+
+    if (gameResult == "draw") {
+      setTimeout(resetBoard, 800);
+      setTimeout(resetMoveHistory, 800);
+      printEndGameHistory("Empate", scenery);
+    }
+
+    const bestOfResult =  verifyBestOf()
+
+    printMoveHistory(movePlayer, playerName, boardIndex);
+    printScore();
+    toggleMove();
+
+    if ($winnerNameField.textContent !== "") resetGameWinner()
+    if (type === "user" && botActive) setTimeout(bot, 100);
+    if (bestOfResult !== undefined) {
+      resetScoreBoard()
+      resetScoreVariables()
+      gameWinner(playerName)
+    }
+  }
+}
+//#endregion
+
+//** MOVES BOARD*/
 $boardFieldList.forEach(function ($field, index) {
   $field.addEventListener("click", function () {
-    if (gameStart) {
-      if ($field.textContent != "") return;
-
-      $field.textContent = movePlayer;
-
-      const gameResult = verifyGame();
-      const playerName =
-        movePlayer === "X" ? $player1Name.value : $player2Name.value;
-
-      if (gameResult === "X" || gameResult === "O") {
-        gameStart = false;
-        printWinnerName(playerName);
-        addPoint(gameResult);
-        setTimeout(resetBoard, 800);
-        setTimeout(resetMoveHistory, 800);
-      }
-
-      if (gameResult == "draw") {
-        $winnerPrint.textContent = "Empate";
-        setTimeout(resetBoard, 800);
-        setTimeout(resetMoveHistory, 800);
-      }
-
-      console.log(index);
-      printMoveHistory(movePlayer, playerName, index);
-      printScore();
-      toggleMove();
-    }
+    moveBoard(index, "user");
   });
 });
 
@@ -174,6 +257,8 @@ $boardFieldList.forEach(function ($field, index) {
 $startButton.addEventListener("click", function () {
   gameStart = !gameStart;
   $startButton.classList.toggle("start");
+  $player1Name.disabled = !$player2Name.disabled;
+  $player2Name.disabled = !$player2Name.disabled;
   if (gameStart) {
     $playerTurn.textContent = $player1Name.value;
   }
@@ -185,16 +270,22 @@ $resetButton.addEventListener("click", function () {
   resetMoveHistory();
   resetScoreBoard();
   resetScoreVariables();
+  resetEndGameHistory();
+  gameStart = false;
   $playerTurn.textContent = "";
   $player1Name.textContent = "";
   $player2Name.textContent = "";
-})
-
-//** CHECKBOX */
-$switcher.addEventListener("click", function () {
-  $switcher.classList.toggle("start-box__player--input-switcher-toggle");
 });
 
-$switcher2.addEventListener("click", function () {
-  $switcher2.classList.toggle("start-box__player--input-switcher-toggle");
+//** SWITCHER */
+$switcherBot.addEventListener("click", function () {
+  $switcherBot.classList.toggle("start-box__player--input-switcher-toggle");
+  botActive = !botActive;
+  $player2Name.value = botActive ? "BOT" : "";
+  $player2Name.disabled = !$player2Name.disabled;
+});
+
+$switcherBestOf.addEventListener("click", function () {
+  $switcherBestOf.classList.toggle("start-box__player--input-switcher-toggle");
+  toggleBestOf()
 });

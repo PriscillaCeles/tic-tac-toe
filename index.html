@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="stylesheet" href="./style.css">
 
   <script src="index.js" defer></script>
 
@@ -39,24 +39,8 @@
 
     <article class="start-box__round-moves">
       <h3 class="start-box__round-moves--title">Histórico de Partidas</h3>
-      <div class="start-box__moves">
-        <div class="start-box__moves-winner">
-          <strong class="start-box__moves-winner--title">Vencedor</strong>
-          <span class="start-box__moves-winner--name">Priscilla Celes</span>
-        </div>
-        <span class="start-box__moves-winner--scenery">Cenário</span>
-        <div class="start-box__moves-mini-board">
-          <span class="start-box__moves-mini-board--item">O</span>
-          <span class="start-box__moves-mini-board--item">O</span>
-          <span class="start-box__moves-mini-board--item">X</span>
-          <span class="start-box__moves-mini-board--item">O</span>
-          <span class="start-box__moves-mini-board--item">X</span>
-          <span class="start-box__moves-mini-board--item">X</span>
-          <span class="start-box__moves-mini-board--item"></span>
-          <span class="start-box__moves-mini-board--item">O</span>
-          <span class="start-box__moves-mini-board--item">X</span>
-        </div>
-      </div>
+      <ul class="start-box__moves-list">
+      </ul>
     </article>
 
     <button class="start-box__button start-box__button--reset">Reiniciar</button>
@@ -70,6 +54,9 @@
         <p class="game-box__scoreboard--player"></p>
         <small class="game-box__scoreboard--point scoreboard-score-2">00</small>
       </div>
+    </div>
+    <div class="game-box__winner">
+      <span class="game-box__winner--name"></span>
     </div>
 
     <div class="game-box__moves-board">
@@ -87,7 +74,6 @@
 
   <section class="moves-box">
     <h3 class="moves-box__title">Histórico de Jogadas</h3>
-
     <ul class="moves-box__move-list"></ul>
   </section>
 </body>

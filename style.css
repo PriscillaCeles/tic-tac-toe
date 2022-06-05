@@ -53,6 +53,10 @@ table {
   border-spacing: 0;
 }
 
+strong {
+  font-weight: 700;
+}
+
 * {
   font-family: "Ubuntu", sans-serif;
 }
@@ -252,6 +256,11 @@ body {
   text-align: center;
 }
 
+.start-box__moves-list {
+  max-height: 350px;
+  overflow: auto;
+}
+
 .start-box__moves {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -381,6 +390,20 @@ body {
   font-weight: 500;
 }
 
+.game-box__winner {
+  margin: 0 auto;
+  margin-top: 15px;
+  min-height: 25px;
+}
+
+.game-box__winner--name {
+  width: 100%;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 1.5625rem;
+  font-weight: 400;
+}
+
 .game-box__moves-board {
   width: 100%;
   max-width: 510px;
@@ -391,7 +414,7 @@ body {
       grid-template-columns: repeat(3, 160px);
   -ms-grid-rows: (160px)[3];
       grid-template-rows: repeat(3, 160px);
-  margin-top: 4.375rem;
+  margin-top: 30px;
   gap: 15px;
 }
 
@@ -499,5 +522,14 @@ body {
     height: 100vh;
     width: 100vw;
   }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #FFFFFF;
+  border-radius: 4px;
 }
 /*# sourceMappingURL=style.css.map */
