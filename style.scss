@@ -327,6 +327,7 @@ body {
 
   &__move-list {
     margin-top: 28px;
+    flex-grow: 1;
   }
 
   &__move-list--item {
@@ -338,6 +339,7 @@ body {
     box-sizing: border-box;
     padding: 3px 10px;
     margin-bottom: calculator-rem(20);
+    cursor: pointer;
 
     &-icon {
       color: $grey;
@@ -362,6 +364,34 @@ body {
     &--position {
       color: $dark-blue;
       font-weight: 400;
+    }
+  }
+
+  &__button {
+    display: none;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    font-size: $font-size-l;
+    line-height: $font-size-l;
+    font-weight: 500;
+    box-shadow: $shadow;
+    box-sizing: border-box;
+    padding: 15px;
+    margin-top: calculator-rem(45);
+    transition: 200ms;
+    background-color: $white;
+    color: $dark-blue;
+    justify-self: end;
+
+  &.active {
+    display: flex;
+  }
+
+    &:hover {
+      background-color: lighten($color: $grey, $amount: 40%);
+      box-shadow: none;
+      cursor: pointer;
     }
   }
 }

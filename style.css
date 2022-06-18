@@ -459,6 +459,9 @@ body {
 
 .moves-box__move-list {
   margin-top: 28px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 .moves-box__move-list--item {
@@ -475,6 +478,7 @@ body {
           box-sizing: border-box;
   padding: 3px 10px;
   margin-bottom: 1.25rem;
+  cursor: pointer;
 }
 
 .moves-box__move-list--item-icon {
@@ -507,6 +511,41 @@ body {
 .moves-box__move-text--position {
   color: #0097E6;
   font-weight: 400;
+}
+
+.moves-box__button {
+  display: none;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 500;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 15px;
+  margin-top: 2.8125rem;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+  background-color: #FFFFFF;
+  color: #0097E6;
+  -ms-grid-column-align: end;
+      justify-self: end;
+}
+
+.moves-box__button.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.moves-box__button:hover {
+  background-color: #e8e8e8;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  cursor: pointer;
 }
 
 .start {
